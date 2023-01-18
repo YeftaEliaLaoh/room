@@ -26,24 +26,24 @@
         </a>
       </li>
       
-      <li <?php if ($page == 'pegawai') {echo 'class="active"';} ?>>
-        <a href="<?php echo base_url('Pegawai'); ?>">
+      <li <?php if ($page == 'ruangan') {echo 'class="active"';} ?>>
+        <a href="<?php echo base_url('Ruangan'); ?>">
           <i class="fa fa-user"></i>
-          <span>Data Pegawai</span>
+          <span>Data Ruangan</span>
         </a>
       </li>
 
-      <li <?php if ($page == 'posisi') {echo 'class="active"';} ?>>
-        <a href="<?php echo base_url('Posisi'); ?>">
+      <li <?php if ($page == 'category') {echo 'class="active"';} ?>>
+        <a href="<?php echo base_url('Category'); ?>">
           <i class="fa fa-briefcase"></i>
-          <span>Data Posisi</span>
+          <span>Data Category</span>
         </a>
       </li>
       
-      <li <?php if ($page == 'kota') {echo 'class="active"';} ?>>
-        <a href="<?php echo base_url('Kota'); ?>">
+      <li <?php if ($page == 'gereja') {echo 'class="active"';} ?>>
+        <a href="<?php echo base_url('Gereja'); ?>">
           <i class="fa fa-location-arrow"></i>
-          <span>Data Kota</span>
+          <span>Data Gereja</span>
         </a>
       </li>
     </ul>

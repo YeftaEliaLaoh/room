@@ -64,19 +64,19 @@ INSERT INTO `kelamin` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kota`
+-- Struktur dari tabel `gereja`
 --
 
-CREATE TABLE `kota` (
+CREATE TABLE `gereja` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kota`
+-- Dumping data untuk tabel `gereja`
 --
 
-INSERT INTO `kota` (`id`, `nama`) VALUES
+INSERT INTO `gereja` (`id`, `nama`) VALUES
 (1, 'Malang'),
 (3, 'Blitar'),
 (4, 'Tulungagung'),
@@ -87,24 +87,24 @@ INSERT INTO `kota` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pegawai`
+-- Struktur dari tabel `ruangan`
 --
 
-CREATE TABLE `pegawai` (
+CREATE TABLE `ruangan` (
   `id` varchar(255) NOT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `telp` varchar(255) DEFAULT NULL,
-  `id_kota` int(11) DEFAULT NULL,
+  `id_gereja` int(11) DEFAULT NULL,
   `id_kelamin` int(1) DEFAULT NULL,
-  `id_posisi` int(11) DEFAULT NULL,
+  `id_category` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pegawai`
+-- Dumping data untuk tabel `ruangan`
 --
 
-INSERT INTO `pegawai` (`id`, `nama`, `telp`, `id_kota`, `id_kelamin`, `id_posisi`, `status`) VALUES
+INSERT INTO `ruangan` (`id`, `nama`, `telp`, `id_gereja`, `id_kelamin`, `id_category`, `status`) VALUES
 ('10', 'Antony Febriansyah Hartono', '082199568540', 1, 1, 1, 1),
 ('11', 'Hafizh Asrofil Al Banna', '087859615271', 1, 1, 1, 1),
 ('12', 'Faiq Fajrullah', '085736333728', 1, 1, 2, 1),
@@ -120,19 +120,19 @@ INSERT INTO `pegawai` (`id`, `nama`, `telp`, `id_kota`, `id_kelamin`, `id_posisi
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `posisi`
+-- Struktur dari tabel `category`
 --
 
-CREATE TABLE `posisi` (
+CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `posisi`
+-- Dumping data untuk tabel `category`
 --
 
-INSERT INTO `posisi` (`id`, `nama`) VALUES
+INSERT INTO `category` (`id`, `nama`) VALUES
 (1, 'IT'),
 (2, 'HRD'),
 (3, 'Keuangan'),
@@ -156,15 +156,15 @@ ALTER TABLE `kelamin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kota`
+-- Indexes for table `gereja`
 --
-ALTER TABLE `kota`
+ALTER TABLE `gereja`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `posisi`
+-- Indexes for table `category`
 --
-ALTER TABLE `posisi`
+ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -177,14 +177,14 @@ ALTER TABLE `posisi`
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `kota`
+-- AUTO_INCREMENT for table `gereja`
 --
-ALTER TABLE `kota`
+ALTER TABLE `gereja`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
--- AUTO_INCREMENT for table `posisi`
+-- AUTO_INCREMENT for table `category`
 --
-ALTER TABLE `posisi`
+ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

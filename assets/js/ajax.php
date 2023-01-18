@@ -9,9 +9,9 @@
 		});
 
 	window.onload = function() {
-		tampilPegawai();
-		tampilPosisi();
-		tampilKota();
+		tampilRuangan();
+		tampilCategory();
+		tampilGereja();
 		<?php
 			if ($this->session->flashdata('msg') != '') {
 				echo "effect_msg();";
@@ -35,66 +35,66 @@
 		setTimeout(function() { $('.msg').fadeOut(1000); }, 3000);
 	}
 
-	function tampilPegawai() {
-		$.get('<?php echo base_url('Pegawai/tampil'); ?>', function(data) {
+	function tampilRuangan() {
+		$.get('<?php echo base_url('Ruangan/tampil'); ?>', function(data) {
 			MyTable.fnDestroy();
-			$('#data-pegawai').html(data);
+			$('#data-ruangan').html(data);
 			refresh();
 		});
 	}
 
-	var id_pegawai;
-	$(document).on("click", ".konfirmasiHapus-pegawai", function() {
-		id_pegawai = $(this).attr("data-id");
+	var id_ruangan;
+	$(document).on("click", ".konfirmasiHapus-ruangan", function() {
+		id_ruangan = $(this).attr("data-id");
 	})
-	$(document).on("click", ".hapus-dataPegawai", function() {
-		var id = id_pegawai;
+	$(document).on("click", ".hapus-dataRuangan", function() {
+		var id = id_ruangan;
 		
 		$.ajax({
 			method: "POST",
-			url: "<?php echo base_url('Pegawai/delete'); ?>",
+			url: "<?php echo base_url('Ruangan/delete'); ?>",
 			data: "id=" +id
 		})
 		.done(function(data) {
 			$('#konfirmasiHapus').modal('hide');
-			tampilPegawai();
+			tampilRuangan();
 			$('.msg').html(data);
 			effect_msg();
 		})
 	})
 
-	$(document).on("click", ".update-dataPegawai", function() {
+	$(document).on("click", ".update-dataRuangan", function() {
 		var id = $(this).attr("data-id");
 		
 		$.ajax({
 			method: "POST",
-			url: "<?php echo base_url('Pegawai/update'); ?>",
+			url: "<?php echo base_url('Ruangan/update'); ?>",
 			data: "id=" +id
 		})
 		.done(function(data) {
 			$('#tempat-modal').html(data);
-			$('#update-pegawai').modal('show');
+			$('#update-ruangan').modal('show');
 		})
 	})
 
-	$('#form-tambah-pegawai').submit(function(e) {
+	$('#form-tambah-ruangan').submit(function(e) {
 		var data = $(this).serialize();
 
 		$.ajax({
 			method: 'POST',
-			url: '<?php echo base_url('Pegawai/prosesTambah'); ?>',
+			url: '<?php echo base_url('Ruangan/prosesTambah'); ?>',
 			data: data
 		})
 		.done(function(data) {
 			var out = jQuery.parseJSON(data);
 
-			tampilPegawai();
+			tampilRuangan();
 			if (out.status == 'form') {
 				$('.form-msg').html(out.msg);
 				effect_msg_form();
 			} else {
-				document.getElementById("form-tambah-pegawai").reset();
-				$('#tambah-pegawai').modal('hide');
+				document.getElementById("form-tambah-ruangan").reset();
+				$('#tambah-ruangan').modal('hide');
 				$('.msg').html(out.msg);
 				effect_msg();
 			}
@@ -103,24 +103,24 @@
 		e.preventDefault();
 	});
 
-	$(document).on('submit', '#form-update-pegawai', function(e){
+	$(document).on('submit', '#form-update-ruangan', function(e){
 		var data = $(this).serialize();
 
 		$.ajax({
 			method: 'POST',
-			url: '<?php echo base_url('Pegawai/prosesUpdate'); ?>',
+			url: '<?php echo base_url('Ruangan/prosesUpdate'); ?>',
 			data: data
 		})
 		.done(function(data) {
 			var out = jQuery.parseJSON(data);
 
-			tampilPegawai();
+			tampilRuangan();
 			if (out.status == 'form') {
 				$('.form-msg').html(out.msg);
 				effect_msg_form();
 			} else {
-				document.getElementById("form-update-pegawai").reset();
-				$('#update-pegawai').modal('hide');
+				document.getElementById("form-update-ruangan").reset();
+				$('#update-ruangan').modal('hide');
 				$('.msg').html(out.msg);
 				effect_msg();
 			}
@@ -129,63 +129,63 @@
 		e.preventDefault();
 	});
 
-	$('#tambah-pegawai').on('hidden.bs.modal', function () {
+	$('#tambah-ruangan').on('hidden.bs.modal', function () {
 	  $('.form-msg').html('');
 	})
 
-	$('#update-pegawai').on('hidden.bs.modal', function () {
+	$('#update-ruangan').on('hidden.bs.modal', function () {
 	  $('.form-msg').html('');
 	})
 
-	//Kota
-	function tampilKota() {
-		$.get('<?php echo base_url('Kota/tampil'); ?>', function(data) {
+	//Gereja
+	function tampilGereja() {
+		$.get('<?php echo base_url('Gereja/tampil'); ?>', function(data) {
 			MyTable.fnDestroy();
-			$('#data-kota').html(data);
+			$('#data-gereja').html(data);
 			refresh();
 		});
 	}
 
-	var id_kota;
-	$(document).on("click", ".konfirmasiHapus-kota", function() {
-		id_kota = $(this).attr("data-id");
+	var id_gereja;
+	$(document).on("click", ".konfirmasiHapus-gereja", function() {
+		id_gereja = $(this).attr("data-id");
 	})
-	$(document).on("click", ".hapus-dataKota", function() {
-		var id = id_kota;
+	$(document).on("click", ".hapus-dataGereja", function() {
+		var id = id_gereja;
 		
 		$.ajax({
 			method: "POST",
-			url: "<?php echo base_url('Kota/delete'); ?>",
+			url: "<?php echo base_url('Gereja/delete'); ?>",
 			data: "id=" +id
 		})
 		.done(function(data) {
 			$('#konfirmasiHapus').modal('hide');
-			tampilKota();
+			tampilGereja();
 			$('.msg').html(data);
 			effect_msg();
 		})
 	})
 
-	$(document).on("click", ".update-dataKota", function() {
+	$(document).on("click", ".update-dataGereja", function() {
 		var id = $(this).attr("data-id");
 		
 		$.ajax({
 			method: "POST",
-			url: "<?php echo base_url('Kota/update'); ?>",
+			url: "<?php echo base_url('Gereja/update'); ?>",
 			data: "id=" +id
 		})
 		.done(function(data) {
 			$('#tempat-modal').html(data);
-			$('#update-kota').modal('show');
+			$('#update-gereja').modal('show');
 		})
 	})
 
-	$(document).on("click", ".detail-dataKota", function() {
+	$(document).on("click", ".detail-dataGereja", function() {
 		var id = $(this).attr("data-id");
 		
 		$.ajax({
 			method: "POST",
-			url: "<?php echo base_url('Kota/detail'); ?>",
+			url: "<?php echo base_url('Gereja/detail'); ?>",
 			data: "id=" +id
 		})
 		.done(function(data) {
@@ -198,28 +198,28 @@
 				  "info": true,
 				  "autoWidth": false
 				});
-			$('#detail-kota').modal('show');
+			$('#detail-gereja').modal('show');
 		})
 	})
 
-	$('#form-tambah-kota').submit(function(e) {
+	$('#form-tambah-gereja').submit(function(e) {
 		var data = $(this).serialize();
 
 		$.ajax({
 			method: 'POST',
-			url: '<?php echo base_url('Kota/prosesTambah'); ?>',
+			url: '<?php echo base_url('Gereja/prosesTambah'); ?>',
 			data: data
 		})
 		.done(function(data) {
 			var out = jQuery.parseJSON(data);
 
-			tampilKota();
+			tampilGereja();
 			if (out.status == 'form') {
 				$('.form-msg').html(out.msg);
 				effect_msg_form();
 			} else {
-				document.getElementById("form-tambah-kota").reset();
-				$('#tambah-kota').modal('hide');
+				document.getElementById("form-tambah-gereja").reset();
+				$('#tambah-gereja').modal('hide');
 				$('.msg').html(out.msg);
 				effect_msg();
 			}
@@ -228,24 +228,24 @@
 		e.preventDefault();
 	});
 
-	$(document).on('submit', '#form-update-kota', function(e){
+	$(document).on('submit', '#form-update-gereja', function(e){
 		var data = $(this).serialize();
 
 		$.ajax({
 			method: 'POST',
-			url: '<?php echo base_url('Kota/prosesUpdate'); ?>',
+			url: '<?php echo base_url('Gereja/prosesUpdate'); ?>',
 			data: data
 		})
 		.done(function(data) {
 			var out = jQuery.parseJSON(data);
 
-			tampilKota();
+			tampilGereja();
 			if (out.status == 'form') {
 				$('.form-msg').html(out.msg);
 				effect_msg_form();
 			} else {
-				document.getElementById("form-update-kota").reset();
-				$('#update-kota').modal('hide');
+				document.getElementById("form-update-gereja").reset();
+				$('#update-gereja').modal('hide');
 				$('.msg').html(out.msg);
 				effect_msg();
 			}
@@ -254,63 +254,63 @@
 		e.preventDefault();
 	});
 
-	$('#tambah-kota').on('hidden.bs.modal', function () {
+	$('#tambah-gereja').on('hidden.bs.modal', function () {
 	  $('.form-msg').html('');
 	})
 
-	$('#update-kota').on('hidden.bs.modal', function () {
+	$('#update-gereja').on('hidden.bs.modal', function () {
 	  $('.form-msg').html('');
 	})
 
-	//Posisi
-	function tampilPosisi() {
-		$.get('<?php echo base_url('Posisi/tampil'); ?>', function(data) {
+	//Category
+	function tampilCategory() {
+		$.get('<?php echo base_url('Category/tampil'); ?>', function(data) {
 			MyTable.fnDestroy();
-			$('#data-posisi').html(data);
+			$('#data-category').html(data);
 			refresh();
 		});
 	}
 
-	var id_posisi;
-	$(document).on("click", ".konfirmasiHapus-posisi", function() {
-		id_posisi = $(this).attr("data-id");
+	var id_category;
+	$(document).on("click", ".konfirmasiHapus-category", function() {
+		id_category = $(this).attr("data-id");
 	})
-	$(document).on("click", ".hapus-dataPosisi", function() {
-		var id = id_posisi;
+	$(document).on("click", ".hapus-dataCategory", function() {
+		var id = id_category;
 		
 		$.ajax({
 			method: "POST",
-			url: "<?php echo base_url('Posisi/delete'); ?>",
+			url: "<?php echo base_url('Category/delete'); ?>",
 			data: "id=" +id
 		})
 		.done(function(data) {
 			$('#konfirmasiHapus').modal('hide');
-			tampilPosisi();
+			tampilCategory();
 			$('.msg').html(data);
 			effect_msg();
 		})
 	})
 
-	$(document).on("click", ".update-dataPosisi", function() {
+	$(document).on("click", ".update-dataCategory", function() {
 		var id = $(this).attr("data-id");
 		
 		$.ajax({
 			method: "POST",
-			url: "<?php echo base_url('Posisi/update'); ?>",
+			url: "<?php echo base_url('Category/update'); ?>",
 			data: "id=" +id
 		})
 		.done(function(data) {
 			$('#tempat-modal').html(data);
-			$('#update-posisi').modal('show');
+			$('#update-category').modal('show');
 		})
 	})
 
-	$(document).on("click", ".detail-dataPosisi", function() {
+	$(document).on("click", ".detail-dataCategory", function() {
 		var id = $(this).attr("data-id");
 		
 		$.ajax({
 			method: "POST",
-			url: "<?php echo base_url('Posisi/detail'); ?>",
+			url: "<?php echo base_url('Category/detail'); ?>",
 			data: "id=" +id
 		})
 		.done(function(data) {
@@ -323,28 +323,28 @@
 				  "info": true,
 				  "autoWidth": false
 				});
-			$('#detail-posisi').modal('show');
+			$('#detail-category').modal('show');
 		})
 	})
 
-	$('#form-tambah-posisi').submit(function(e) {
+	$('#form-tambah-category').submit(function(e) {
 		var data = $(this).serialize();
 
 		$.ajax({
 			method: 'POST',
-			url: '<?php echo base_url('Posisi/prosesTambah'); ?>',
+			url: '<?php echo base_url('Category/prosesTambah'); ?>',
 			data: data
 		})
 		.done(function(data) {
 			var out = jQuery.parseJSON(data);
 
-			tampilPosisi();
+			tampilCategory();
 			if (out.status == 'form') {
 				$('.form-msg').html(out.msg);
 				effect_msg_form();
 			} else {
-				document.getElementById("form-tambah-posisi").reset();
-				$('#tambah-posisi').modal('hide');
+				document.getElementById("form-tambah-category").reset();
+				$('#tambah-category').modal('hide');
 				$('.msg').html(out.msg);
 				effect_msg();
 			}
@@ -353,24 +353,24 @@
 		e.preventDefault();
 	});
 
-	$(document).on('submit', '#form-update-posisi', function(e){
+	$(document).on('submit', '#form-update-category', function(e){
 		var data = $(this).serialize();
 
 		$.ajax({
 			method: 'POST',
-			url: '<?php echo base_url('Posisi/prosesUpdate'); ?>',
+			url: '<?php echo base_url('Category/prosesUpdate'); ?>',
 			data: data
 		})
 		.done(function(data) {
 			var out = jQuery.parseJSON(data);
 
-			tampilPosisi();
+			tampilCategory();
 			if (out.status == 'form') {
 				$('.form-msg').html(out.msg);
 				effect_msg_form();
 			} else {
-				document.getElementById("form-update-posisi").reset();
-				$('#update-posisi').modal('hide');
+				document.getElementById("form-update-category").reset();
+				$('#update-category').modal('hide');
 				$('.msg').html(out.msg);
 				effect_msg();
 			}
@@ -379,11 +379,11 @@
 		e.preventDefault();
 	});
 
-	$('#tambah-posisi').on('hidden.bs.modal', function () {
+	$('#tambah-category').on('hidden.bs.modal', function () {
 	  $('.form-msg').html('');
 	})
 
-	$('#update-posisi').on('hidden.bs.modal', function () {
+	$('#update-category').on('hidden.bs.modal', function () {
 	  $('.form-msg').html('');
 	})
 </script>

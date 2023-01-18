@@ -1,43 +1,43 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Posisi extends AUTH_Controller {
+class Category extends AUTH_Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('M_posisi');
+		$this->load->model('M_category');
 	}
 
 	public function index() {
 		$data['userdata'] 	= $this->userdata;
-		$data['dataPosisi'] = $this->M_posisi->select_all();
+		$data['dataCategory'] = $this->M_category->select_all();
 
-		$data['page'] 		= "posisi";
-		$data['judul'] 		= "Data Posisi";
-		$data['deskripsi'] 	= "Manage Data Posisi";
+		$data['page'] 		= "category";
+		$data['judul'] 		= "Data Category";
+		$data['deskripsi'] 	= "Manage Data Category";
 
-		$data['modal_tambah_posisi'] = show_my_modal('modals/modal_tambah_posisi', 'tambah-posisi', $data);
+		$data['modal_tambah_category'] = show_my_modal('modals/modal_tambah_category', 'tambah-category', $data);
 
-		$this->template->views('posisi/home', $data);
+		$this->template->views('category/home', $data);
 	}
 
 	public function tampil() {
-		$data['dataPosisi'] = $this->M_posisi->select_all();
-		$this->load->view('posisi/list_data', $data);
+		$data['dataCategory'] = $this->M_category->select_all();
+		$this->load->view('category/list_data', $data);
 	}
 
 	public function prosesTambah() {
-		$this->form_validation->set_rules('posisi', 'posisi', 'trim|required');
+		$this->form_validation->set_rules('category', 'category', 'trim|required');
 
 		$data 	= $this->input->post();
 		if ($this->form_validation->run() == TRUE) {
-			$result = $this->M_posisi->insert($data);
+			$result = $this->M_category->insert($data);
 
 			if ($result > 0) {
 				$out['status'] = '';
-				$out['msg'] = show_succ_msg('Data Posisi Berhasil ditambahkan', '20px');
+				$out['msg'] = show_succ_msg('Data Category Berhasil ditambahkan', '20px');
 			} else {
 				$out['status'] = '';
-				$out['msg'] = show_err_msg('Data Posisi Gagal ditambahkan', '20px');
+				$out['msg'] = show_err_msg('Data Category Gagal ditambahkan', '20px');
 			}
 		} else {
 			$out['status'] = 'form';
@@ -51,24 +51,24 @@ class Posisi extends AUTH_Controller {
 		$data['userdata'] 	= $this->userdata;
 
 		$id 				= trim($_POST['id']);
-		$data['dataPosisi'] = $this->M_posisi->select_by_id($id);
+		$data['dataCategory'] = $this->M_category->select_by_id($id);
 
-		echo show_my_modal('modals/modal_update_posisi', 'update-posisi', $data);
+		echo show_my_modal('modals/modal_update_category', 'update-category', $data);
 	}
 
 	public function prosesUpdate() {
-		$this->form_validation->set_rules('posisi', 'posisi', 'trim|required');
+		$this->form_validation->set_rules('category', 'category', 'trim|required');
 
 		$data 	= $this->input->post();
 		if ($this->form_validation->run() == TRUE) {
-			$result = $this->M_posisi->update($data);
+			$result = $this->M_category->update($data);
 
 			if ($result > 0) {
 				$out['status'] = '';
-				$out['msg'] = show_succ_msg('Data Posisi Berhasil diupdate', '20px');
+				$out['msg'] = show_succ_msg('Data Category Berhasil diupdate', '20px');
 			} else {
 				$out['status'] = '';
-				$out['msg'] = show_succ_msg('Data Posisi Gagal diupdate', '20px');
+				$out['msg'] = show_succ_msg('Data Category Gagal diupdate', '20px');
 			}
 		} else {
 			$out['status'] = 'form';
@@ -80,12 +80,12 @@ class Posisi extends AUTH_Controller {
 
 	public function delete() {
 		$id = $_POST['id'];
-		$result = $this->M_posisi->delete($id);
+		$result = $this->M_category->delete($id);
 		
 		if ($result > 0) {
-			echo show_succ_msg('Data Posisi Berhasil dihapus', '20px');
+			echo show_succ_msg('Data Category Berhasil dihapus', '20px');
 		} else {
-			echo show_err_msg('Data Posisi Gagal dihapus', '20px');
+			echo show_err_msg('Data Category Gagal dihapus', '20px');
 		}
 	}
 
@@ -93,10 +93,10 @@ class Posisi extends AUTH_Controller {
 		$data['userdata'] 	= $this->userdata;
 
 		$id 				= trim($_POST['id']);
-		$data['posisi'] = $this->M_posisi->select_by_id($id);
-		$data['dataPosisi'] = $this->M_posisi->select_by_pegawai($id);
+		$data['category'] = $this->M_category->select_by_id($id);
+		$data['dataCategory'] = $this->M_category->select_by_ruangan($id);
 
-		echo show_my_modal('modals/modal_detail_posisi', 'detail-posisi', $data, 'lg');
+		echo show_my_modal('modals/modal_detail_category', 'detail-category', $data, 'lg');
 	}
 
 	public function export() {
@@ -105,14 +105,14 @@ class Posisi extends AUTH_Controller {
 		include_once './assets/phpexcel/Classes/PHPExcel.php';
 		$objPHPExcel = new PHPExcel();
 
-		$data = $this->M_posisi->select_all();
+		$data = $this->M_category->select_all();
 
 		$objPHPExcel = new PHPExcel(); 
 		$objPHPExcel->setActiveSheetIndex(0); 
 		$rowCount = 1; 
 
 		$objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, "ID"); 
-		$objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, "Nama Posisi");
+		$objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, "Nama Category");
 		$rowCount++;
 
 		foreach($data as $value){
@@ -122,10 +122,10 @@ class Posisi extends AUTH_Controller {
 		} 
 
 		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel); 
-		$objWriter->save('./assets/excel/Data Posisi.xlsx'); 
+		$objWriter->save('./assets/excel/Data Category.xlsx'); 
 
 		$this->load->helper('download');
-		force_download('./assets/excel/Data Posisi.xlsx', NULL);
+		force_download('./assets/excel/Data Category.xlsx', NULL);
 	}
 
 	public function import() {
@@ -157,7 +157,7 @@ class Posisi extends AUTH_Controller {
 				$index = 0;
 				foreach ($sheetData as $key => $value) {
 					if ($key != 1) {
-						$check = $this->M_posisi->check_nama($value['B']);
+						$check = $this->M_category->check_nama($value['B']);
 
 						if ($check != 1) {
 							$resultData[$index]['nama'] = ucwords($value['B']);
@@ -169,14 +169,14 @@ class Posisi extends AUTH_Controller {
 				unlink('./assets/excel/' .$data['file_name']);
 
 				if (count($resultData) != 0) {
-					$result = $this->M_kota->insert_batch($resultData);
+					$result = $this->M_gereja->insert_batch($resultData);
 					if ($result > 0) {
-						$this->session->set_flashdata('msg', show_succ_msg('Data Posisi Berhasil diimport ke database'));
-						redirect('Posisi');
+						$this->session->set_flashdata('msg', show_succ_msg('Data Category Berhasil diimport ke database'));
+						redirect('Category');
 					}
 				} else {
-					$this->session->set_flashdata('msg', show_msg('Data Posisi Gagal diimport ke database (Data Sudah terupdate)', 'warning', 'fa-warning'));
-					redirect('Posisi');
+					$this->session->set_flashdata('msg', show_msg('Data Category Gagal diimport ke database (Data Sudah terupdate)', 'warning', 'fa-warning'));
+					redirect('Category');
 				}
 
 			}
@@ -184,5 +184,5 @@ class Posisi extends AUTH_Controller {
 	}
 }
 
-/* End of file Posisi.php */
-/* Location: ./application/controllers/Posisi.php */
+/* End of file Category.php */
+/* Location: ./application/controllers/Category.php */

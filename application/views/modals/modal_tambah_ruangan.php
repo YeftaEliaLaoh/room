@@ -1,9 +1,9 @@
 <div class="col-md-offset-1 col-md-10 col-md-offset-1 well">
   <div class="form-msg"></div>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h3 style="display:block; text-align:center;">Tambah Data Pegawai</h3>
+  <h3 style="display:block; text-align:center;">Tambah Data Ruangan</h3>
 
-  <form id="form-tambah-pegawai" method="POST">
+  <form id="form-tambah-ruangan" method="POST">
     <div class="input-group form-group">
       <span class="input-group-addon" id="sizing-addon2">
         <i class="glyphicon glyphicon-user"></i>
@@ -12,20 +12,14 @@
     </div>
     <div class="input-group form-group">
       <span class="input-group-addon" id="sizing-addon2">
-        <i class="glyphicon glyphicon-phone-alt"></i>
-      </span>
-      <input type="text" class="form-control" placeholder="Nomor Telepon" name="telp" aria-describedby="sizing-addon2">
-    </div>
-    <div class="input-group form-group">
-      <span class="input-group-addon" id="sizing-addon2">
         <i class="glyphicon glyphicon-home"></i>
       </span>
-      <select name="kota" class="form-control select2" aria-describedby="sizing-addon2">
+      <select name="gereja" class="form-control select2" aria-describedby="sizing-addon2">
         <?php
-        foreach ($dataKota as $kota) {
+        foreach ($dataGereja as $gereja) {
           ?>
-          <option value="<?php echo $kota->id; ?>">
-            <?php echo $kota->nama; ?>
+          <option value="<?php echo $gereja->id; ?>">
+            <?php echo $gereja->nama; ?>
           </option>
           <?php
         }
@@ -49,12 +43,12 @@
       <span class="input-group-addon" id="sizing-addon2">
         <i class="glyphicon glyphicon-briefcase"></i>
       </span>
-      <select name="posisi" class="form-control select2"  aria-describedby="sizing-addon2" style="width: 100%">
+      <select name="category" class="form-control select2"  aria-describedby="sizing-addon2" style="width: 100%">
         <?php
-        foreach ($dataPosisi as $posisi) {
+        foreach ($dataCategory as $category) {
           ?>
-          <option value="<?php echo $posisi->id; ?>">
-            <?php echo $posisi->nama; ?>
+          <option value="<?php echo $category->id; ?>">
+            <?php echo $category->nama; ?>
           </option>
           <?php
         }

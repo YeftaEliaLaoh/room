@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_kota extends CI_Model {
+class M_gereja extends CI_Model {
 	public function select_all() {
 		$this->db->select('*');
-		$this->db->from('kota');
+		$this->db->from('gereja');
 
 		$data = $this->db->get();
 
@@ -12,15 +12,15 @@ class M_kota extends CI_Model {
 	}
 
 	public function select_by_id($id) {
-		$sql = "SELECT * FROM kota WHERE id = '{$id}'";
+		$sql = "SELECT * FROM gereja WHERE id = '{$id}'";
 
 		$data = $this->db->query($sql);
 
 		return $data->row();
 	}
 
-	public function select_by_pegawai($id) {
-		$sql = " SELECT pegawai.id AS id, pegawai.nama AS pegawai, pegawai.telp AS telp, kota.nama AS kota, kelamin.nama AS kelamin, posisi.nama AS posisi FROM pegawai, kota, kelamin, posisi WHERE pegawai.id_kelamin = kelamin.id AND pegawai.id_posisi = posisi.id AND pegawai.id_kota = kota.id AND pegawai.id_kota={$id}";
+	public function select_by_ruangan($id) {
+		$sql = " SELECT ruangan.id AS id, ruangan.nama AS ruangan, gereja.nama AS gereja, category.nama AS category FROM ruangan, gereja, category WHERE ruangan.id_category = category.id AND ruangan.id_gereja = gereja.id AND ruangan.id_gereja={$id}";
 
 		$data = $this->db->query($sql);
 
@@ -28,7 +28,7 @@ class M_kota extends CI_Model {
 	}
 
 	public function insert($data) {
-		$sql = "INSERT INTO kota VALUES('','" .$data['kota'] ."')";
+		$sql = "INSERT INTO gereja VALUES('','" .$data['gereja'] ."')";
 
 		$this->db->query($sql);
 
@@ -36,13 +36,13 @@ class M_kota extends CI_Model {
 	}
 
 	public function insert_batch($data) {
-		$this->db->insert_batch('kota', $data);
+		$this->db->insert_batch('gereja', $data);
 		
 		return $this->db->affected_rows();
 	}
 
 	public function update($data) {
-		$sql = "UPDATE kota SET nama='" .$data['kota'] ."' WHERE id='" .$data['id'] ."'";
+		$sql = "UPDATE gereja SET nama='" .$data['gereja'] ."' WHERE id='" .$data['id'] ."'";
 
 		$this->db->query($sql);
 
@@ -50,7 +50,7 @@ class M_kota extends CI_Model {
 	}
 
 	public function delete($id) {
-		$sql = "DELETE FROM kota WHERE id='" .$id ."'";
+		$sql = "DELETE FROM gereja WHERE id='" .$id ."'";
 
 		$this->db->query($sql);
 
@@ -59,17 +59,17 @@ class M_kota extends CI_Model {
 
 	public function check_nama($nama) {
 		$this->db->where('nama', $nama);
-		$data = $this->db->get('kota');
+		$data = $this->db->get('gereja');
 
 		return $data->num_rows();
 	}
 
 	public function total_rows() {
-		$data = $this->db->get('kota');
+		$data = $this->db->get('gereja');
 
 		return $data->num_rows();
 	}
 }
 
-/* End of file M_kota.php */
-/* Location: ./application/models/M_kota.php */
+/* End of file M_gereja.php */
+/* Location: ./application/models/M_gereja.php */

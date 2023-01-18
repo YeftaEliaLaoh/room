@@ -1,43 +1,43 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kota extends AUTH_Controller {
+class Gereja extends AUTH_Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('M_kota');
+		$this->load->model('M_gereja');
 	}
 
 	public function index() {
 		$data['userdata'] 	= $this->userdata;
-		$data['dataKota'] 	= $this->M_kota->select_all();
+		$data['dataGereja'] 	= $this->M_gereja->select_all();
 
-		$data['page'] 		= "kota";
-		$data['judul'] 		= "Data Kota";
-		$data['deskripsi'] 	= "Manage Data Kota";
+		$data['page'] 		= "gereja";
+		$data['judul'] 		= "Data Gereja";
+		$data['deskripsi'] 	= "Manage Data Gereja";
 
-		$data['modal_tambah_kota'] = show_my_modal('modals/modal_tambah_kota', 'tambah-kota', $data);
+		$data['modal_tambah_gereja'] = show_my_modal('modals/modal_tambah_gereja', 'tambah-gereja', $data);
 
-		$this->template->views('kota/home', $data);
+		$this->template->views('gereja/home', $data);
 	}
 
 	public function tampil() {
-		$data['dataKota'] = $this->M_kota->select_all();
-		$this->load->view('kota/list_data', $data);
+		$data['dataGereja'] = $this->M_gereja->select_all();
+		$this->load->view('gereja/list_data', $data);
 	}
 
 	public function prosesTambah() {
-		$this->form_validation->set_rules('kota', 'Kota', 'trim|required');
+		$this->form_validation->set_rules('gereja', 'Gereja', 'trim|required');
 
 		$data 	= $this->input->post();
 		if ($this->form_validation->run() == TRUE) {
-			$result = $this->M_kota->insert($data);
+			$result = $this->M_gereja->insert($data);
 
 			if ($result > 0) {
 				$out['status'] = '';
-				$out['msg'] = show_succ_msg('Data Kota Berhasil ditambahkan', '20px');
+				$out['msg'] = show_succ_msg('Data Gereja Berhasil ditambahkan', '20px');
 			} else {
 				$out['status'] = '';
-				$out['msg'] = show_err_msg('Data Kota Gagal ditambahkan', '20px');
+				$out['msg'] = show_err_msg('Data Gereja Gagal ditambahkan', '20px');
 			}
 		} else {
 			$out['status'] = 'form';
@@ -51,24 +51,24 @@ class Kota extends AUTH_Controller {
 		$data['userdata'] 	= $this->userdata;
 
 		$id 				= trim($_POST['id']);
-		$data['dataKota'] 	= $this->M_kota->select_by_id($id);
+		$data['dataGereja'] 	= $this->M_gereja->select_by_id($id);
 
-		echo show_my_modal('modals/modal_update_kota', 'update-kota', $data);
+		echo show_my_modal('modals/modal_update_gereja', 'update-gereja', $data);
 	}
 
 	public function prosesUpdate() {
-		$this->form_validation->set_rules('kota', 'Kota', 'trim|required');
+		$this->form_validation->set_rules('gereja', 'Gereja', 'trim|required');
 
 		$data 	= $this->input->post();
 		if ($this->form_validation->run() == TRUE) {
-			$result = $this->M_kota->update($data);
+			$result = $this->M_gereja->update($data);
 
 			if ($result > 0) {
 				$out['status'] = '';
-				$out['msg'] = show_succ_msg('Data Kota Berhasil diupdate', '20px');
+				$out['msg'] = show_succ_msg('Data Gereja Berhasil diupdate', '20px');
 			} else {
 				$out['status'] = '';
-				$out['msg'] = show_succ_msg('Data Kota Gagal diupdate', '20px');
+				$out['msg'] = show_succ_msg('Data Gereja Gagal diupdate', '20px');
 			}
 		} else {
 			$out['status'] = 'form';
@@ -80,12 +80,12 @@ class Kota extends AUTH_Controller {
 
 	public function delete() {
 		$id = $_POST['id'];
-		$result = $this->M_kota->delete($id);
+		$result = $this->M_gereja->delete($id);
 		
 		if ($result > 0) {
-			echo show_succ_msg('Data Kota Berhasil dihapus', '20px');
+			echo show_succ_msg('Data Gereja Berhasil dihapus', '20px');
 		} else {
-			echo show_err_msg('Data Kota Gagal dihapus', '20px');
+			echo show_err_msg('Data Gereja Gagal dihapus', '20px');
 		}
 	}
 
@@ -93,11 +93,11 @@ class Kota extends AUTH_Controller {
 		$data['userdata'] 	= $this->userdata;
 
 		$id 				= trim($_POST['id']);
-		$data['kota'] = $this->M_kota->select_by_id($id);
-		$data['jumlahKota'] = $this->M_kota->total_rows();
-		$data['dataKota'] = $this->M_kota->select_by_pegawai($id);
+		$data['gereja'] = $this->M_gereja->select_by_id($id);
+		$data['jumlahGereja'] = $this->M_gereja->total_rows();
+		$data['dataGereja'] = $this->M_gereja->select_by_ruangan($id);
 
-		echo show_my_modal('modals/modal_detail_kota', 'detail-kota', $data, 'lg');
+		echo show_my_modal('modals/modal_detail_gereja', 'detail-gereja', $data, 'lg');
 	}
 
 	public function export() {
@@ -106,13 +106,13 @@ class Kota extends AUTH_Controller {
 		include_once './assets/phpexcel/Classes/PHPExcel.php';
 		$objPHPExcel = new PHPExcel();
 
-		$data = $this->M_kota->select_all();
+		$data = $this->M_gereja->select_all();
 
 		$objPHPExcel = new PHPExcel(); 
 		$objPHPExcel->setActiveSheetIndex(0); 
 
 		$objPHPExcel->getActiveSheet()->SetCellValue('A1', "ID"); 
-		$objPHPExcel->getActiveSheet()->SetCellValue('B1', "Nama Kota");
+		$objPHPExcel->getActiveSheet()->SetCellValue('B1', "Nama Gereja");
 
 		$rowCount = 2;
 		foreach($data as $value){
@@ -122,10 +122,10 @@ class Kota extends AUTH_Controller {
 		} 
 
 		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel); 
-		$objWriter->save('./assets/excel/Data Kota.xlsx'); 
+		$objWriter->save('./assets/excel/Data Gereja.xlsx'); 
 
 		$this->load->helper('download');
-		force_download('./assets/excel/Data Kota.xlsx', NULL);
+		force_download('./assets/excel/Data Gereja.xlsx', NULL);
 	}
 
 	public function import() {
@@ -157,7 +157,7 @@ class Kota extends AUTH_Controller {
 				$index = 0;
 				foreach ($sheetData as $key => $value) {
 					if ($key != 1) {
-						$check = $this->M_kota->check_nama($value['B']);
+						$check = $this->M_gereja->check_nama($value['B']);
 
 						if ($check != 1) {
 							$resultData[$index]['nama'] = ucwords($value['B']);
@@ -169,14 +169,14 @@ class Kota extends AUTH_Controller {
 				unlink('./assets/excel/' .$data['file_name']);
 
 				if (count($resultData) != 0) {
-					$result = $this->M_kota->insert_batch($resultData);
+					$result = $this->M_gereja->insert_batch($resultData);
 					if ($result > 0) {
-						$this->session->set_flashdata('msg', show_succ_msg('Data Kota Berhasil diimport ke database'));
-						redirect('Kota');
+						$this->session->set_flashdata('msg', show_succ_msg('Data Gereja Berhasil diimport ke database'));
+						redirect('Gereja');
 					}
 				} else {
-					$this->session->set_flashdata('msg', show_msg('Data Kota Gagal diimport ke database (Data Sudah terupdate)', 'warning', 'fa-warning'));
-					redirect('Kota');
+					$this->session->set_flashdata('msg', show_msg('Data Gereja Gagal diimport ke database (Data Sudah terupdate)', 'warning', 'fa-warning'));
+					redirect('Gereja');
 				}
 
 			}
@@ -184,5 +184,5 @@ class Kota extends AUTH_Controller {
 	}
 }
 
-/* End of file Kota.php */
-/* Location: ./application/controllers/Kota.php */
+/* End of file Gereja.php */
+/* Location: ./application/controllers/Gereja.php */
