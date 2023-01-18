@@ -29,21 +29,27 @@
       <li <?php if ($page == 'ruangan') {echo 'class="active"';} ?>>
         <a href="<?php echo base_url('Ruangan'); ?>">
           <i class="fa fa-user"></i>
-          <span>Data Ruangan</span>
+          <span>Master Ruangan</span>
         </a>
       </li>
 
       <li <?php if ($page == 'category') {echo 'class="active"';} ?>>
         <a href="<?php echo base_url('Category'); ?>">
           <i class="fa fa-briefcase"></i>
-          <span>Data Category</span>
+          <span>Master Category</span>
         </a>
       </li>
       
       <li <?php if ($page == 'gereja') {echo 'class="active"';} ?>>
         <a href="<?php echo base_url('Gereja'); ?>">
           <i class="fa fa-location-arrow"></i>
-          <span>Data Gereja</span>
+          <span>Master Gereja</span>
+        </a>
+      </li>
+      <li <?php if ($page == 'book') {echo 'class="active"';} ?>>
+        <a href="<?php echo base_url('Booking'); ?>">
+          <i class="fa fa-pencil-square-o"></i>
+          <span>Booking</span>
         </a>
       </li>
     </ul>
